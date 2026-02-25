@@ -3,9 +3,10 @@
 ## 本版本定位
 
 - 本版本基于 `v0.2.0` 做增量改造，不重写整体架构
-- 目标是两件事:
+- 目标有三项:
   - 将 `AGENT_DEFINITIONS` 拆分到独立文件，便于后续扩展
   - 新增 `opencode` 支持，并保证跨平台路径兼容
+  - 增加缺省参数时的交互式选择能力
 
 ## 相对 v0.2.0 的改造点
 
@@ -24,23 +25,40 @@
   - Windows: `%USERPROFILE%\\.config\\opencode\\AGENTS.md`
 - 在实现中统一使用 `path.join(homeDir, ".config", "opencode", "AGENTS.md")` 组装
 
-### 3) CLI 行为扩展
+### 3) 默认 agents 扩展
 
-- `--agents` 支持值增加 `opencode`
-- 错误提示的可选值列表同步包含 `opencode`
-- `sync` 执行汇总逻辑按现有机制扩展到三目标
+- 默认 `--agents` 从 `claude,codex` 扩展为 `claude,codex,opencode`
+
+### 4) 交互式参数选择
+
+- 当用户未传 `--agents` 时:
+  - 弹出多选列表
+  - 支持空格勾选、回车提交
+  - 候选项: `claude`、`codex`、`opencode`
+- 当用户未传 `--mode` 时:
+  - 弹出单选列表
+  - 候选项: `link`、`copy`
+- 当参数显式传入时，优先使用显式值，不触发对应交互
+
+### 5) 交互实现方案
+
+- 使用成熟交互库实现，不重复造轮子(建议 `@inquirer/prompts`)
+- 新增 `src/prompts.ts` 封装交互逻辑，避免污染 `src/index.ts`
 
 ## 兼容性与稳定性
 
 - 继续保留 `link/copy` 双模式
 - 继续保留 Windows 下 `link` 权限失败自动降级 `copy`
 - 继续保留目标存在时先备份的策略
+- 继续支持显式参数模式，兼容脚本调用
 
 ## 非目标
 
-- 本版本不修改命令结构，不新增交互式参数
-- 本版本不引入新的第三方依赖
+- 本版本不修改 `sync` 命令结构
+- 本版本不引入交互式“确认写入”二次确认流程
 
 ## 待确认事项(开发前确认)
 
-- 默认 `--agents` 是否从 `claude,codex` 扩展为 `claude,codex,opencode`
+- 非 TTY 环境下若缺少 `--agents`/`--mode`:
+  - 方案 A: 回退默认值继续执行
+  - 方案 B: 报错并要求显式传参
