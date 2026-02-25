@@ -5,8 +5,14 @@
   "bin": {
     "ring1": "bin/ring1.js"
   },
+  "files": [
+    "bin",
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build",
     "start": "node dist/index.js",
     "sync": "node dist/index.js sync"
   },
