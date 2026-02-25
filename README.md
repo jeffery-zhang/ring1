@@ -19,20 +19,27 @@ ring1 sync <targetFile> [--agents <agent...>] [--mode link|copy]
 ### 参数说明
 
 - `<targetFile>`: 要同步的 `.md` 文件
-- `--agents`: 目标 Agent, 支持: `claude`, `codex`，默认同时同步两者
-- `--mode`: 同步模式
-  - `link`(默认): 创建软链接
+- `--agents`: 目标 Agent, 支持: `claude`, `codex`, `opencode`
+  - 传入时按参数执行（支持空格/逗号分隔）
+  - 未传时:
+    - TTY 环境弹出多选（空格勾选，回车提交）
+    - 默认不预选，若空提交会报错
+    - 非 TTY 环境直接报错并要求显式传参
+- `--mode`: 同步模式（默认 `link`）
+  - `link`: 创建软链接
   - `copy`: 直接复制文件
 
 ### 自动命名规则
 
 - `codex` -> `~/.codex/AGENTS.md`
 - `claude` -> `~/.claude/CLAUDE.md`
+- `opencode` -> `~/.config/opencode/AGENTS.md`
 
 在 Windows 上等价路径为:
 
 - `%USERPROFILE%\\.codex\\AGENTS.md`
 - `%USERPROFILE%\\.claude\\CLAUDE.md`
+- `%USERPROFILE%\\.config\\opencode\\AGENTS.md`
 
 ### 备份规则
 
@@ -40,6 +47,7 @@ ring1 sync <targetFile> [--agents <agent...>] [--mode link|copy]
 
 - `AGENTS.bak.<timestamp>.md`
 - `CLAUDE.bak.<timestamp>.md`
+- `AGENTS.bak.<timestamp>.md` (opencode)
 
 ### Windows 兼容行为
 
@@ -50,5 +58,6 @@ ring1 sync <targetFile> [--agents <agent...>] [--mode link|copy]
 
 ```bash
 ring1 sync ./my-guide.md --agents codex claude
-ring1 sync ./my-guide.md --mode copy
+ring1 sync ./my-guide.md --agents opencode --mode copy
+ring1 sync ./my-guide.md
 ```
