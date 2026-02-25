@@ -2,6 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 
 import { parseAgents } from "./agents";
+import { promptForAgents } from "./prompts";
 import { SyncMode, syncToAgents, validateSourceMarkdown } from "./sync";
 
 /**
@@ -12,14 +13,14 @@ export async function runCli(argv: string[] = process.argv): Promise<void> {
   program
     .name("ring1")
     .description("一键同步 Agent user scope 指导文件")
-    .version("0.2.0");
+    .version("0.3.0");
 
   program
     .command("sync <targetFile>")
     .description("将目标 md 文件同步到 Agent 根目录")
     .option(
       "-a, --agents <agents...>",
-      "目标 Agent，支持: claude codex，默认同时同步"
+      "目标 Agent，支持: claude codex opencode；不传时进入交互多选"
     )
     .option("-m, --mode <mode>", "同步模式: link | copy", "link")
     .action(async (targetFile: string, options: { agents?: string[]; mode?: string }) => {
@@ -32,7 +33,9 @@ export async function runCli(argv: string[] = process.argv): Promise<void> {
 
       try {
         const sourcePath = await validateSourceMarkdown(targetFile);
-        const agents = parseAgents(options.agents);
+        const agents = options.agents
+          ? parseAgents(options.agents)
+          : await promptForAgents();
         const results = await syncToAgents(sourcePath, agents, mode);
 
         let failedCount = 0;

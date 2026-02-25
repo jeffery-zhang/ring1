@@ -3,11 +3,7 @@ import { AgentName, SUPPORTED_AGENTS } from "./agent-definitions";
 export type { AgentName };
 export { SUPPORTED_AGENTS };
 
-export function parseAgents(rawAgents?: string[] | string): AgentName[] {
-  if (!rawAgents) {
-    return [...SUPPORTED_AGENTS];
-  }
-
+export function parseAgents(rawAgents: string[] | string): AgentName[] {
   const rawList = Array.isArray(rawAgents) ? rawAgents : [rawAgents];
   const parsed = rawList
     .flatMap((item) => item.split(","))
@@ -15,7 +11,7 @@ export function parseAgents(rawAgents?: string[] | string): AgentName[] {
     .filter((item) => item.length > 0);
 
   if (parsed.length === 0) {
-    return [...SUPPORTED_AGENTS];
+    throw new Error("agents 不能为空，请至少指定一个 agent。");
   }
 
   const uniqueValues = [...new Set(parsed)];
