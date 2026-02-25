@@ -12,21 +12,21 @@ export async function runCli(argv: string[] = process.argv): Promise<void> {
   const program = new Command();
   program
     .name("ring1")
-    .description("一键同步 Agent user scope 指导文件")
+    .description("Sync markdown guidance files to agent user-scope locations")
     .version("0.3.0");
 
   program
     .command("sync <targetFile>")
-    .description("将目标 md 文件同步到 Agent 根目录")
+    .description("Sync a target markdown file to agent directories")
     .option(
       "-a, --agents <agents...>",
-      "目标 Agent，支持: claude codex opencode；不传时进入交互多选"
+      "Target agents: claude codex opencode; prompt multi-select when omitted"
     )
-    .option("-m, --mode <mode>", "同步模式: link | copy", "link")
+    .option("-m, --mode <mode>", "Sync mode: link | copy", "link")
     .action(async (targetFile: string, options: { agents?: string[]; mode?: string }) => {
       const mode = String(options.mode || "link").toLowerCase();
       if (!isSyncMode(mode)) {
-        console.error(chalk.red(`错误: 不支持的 mode: ${options.mode}。可选值: link, copy`));
+        console.error(chalk.red(`Error: Unsupported mode: ${options.mode}. Available: link, copy`));
         process.exitCode = 1;
         return;
       }
@@ -42,17 +42,17 @@ export async function runCli(argv: string[] = process.argv): Promise<void> {
         for (const result of results) {
           if (!result.ok) {
             failedCount += 1;
-            console.error(chalk.red(`✖ ${result.agent} 同步失败 -> ${result.destinationPath}`));
-            console.error(chalk.red(`  原因: ${result.error.message}`));
+            console.error(chalk.red(`✖ ${result.agent} sync failed -> ${result.destinationPath}`));
+            console.error(chalk.red(`  Reason: ${result.error.message}`));
             continue;
           }
 
-          console.log(chalk.green(`✔ ${result.agent} 同步成功 -> ${result.destinationPath}`));
+          console.log(chalk.green(`✔ ${result.agent} synced -> ${result.destinationPath}`));
           if (result.backupPath) {
-            console.log(chalk.yellow(`  备份已生成 -> ${result.backupPath}`));
+            console.log(chalk.yellow(`  Backup created -> ${result.backupPath}`));
           }
           if (result.fallbackApplied) {
-            console.log(chalk.yellow("  Windows link 权限受限，已自动降级为 copy"));
+            console.log(chalk.yellow("  Windows link permission denied, auto-fallback to copy"));
           }
         }
 
@@ -61,7 +61,7 @@ export async function runCli(argv: string[] = process.argv): Promise<void> {
         }
       } catch (error) {
         const normalizedError = error instanceof Error ? error : new Error(String(error));
-        console.error(chalk.red(`错误: ${normalizedError.message}`));
+        console.error(chalk.red(`Error: ${normalizedError.message}`));
         process.exitCode = 1;
       }
     });

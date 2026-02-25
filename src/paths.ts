@@ -27,7 +27,7 @@ export function resolveHomeDir(): string {
     readEnv("USERPROFILE") ??
     joinWindowsHome(readEnv("HOMEDRIVE"), readEnv("HOMEPATH"));
   if (!fallback) {
-    throw new Error("无法解析用户 home 目录，请检查 HOME/USERPROFILE 环境变量。");
+    throw new Error("Unable to resolve user home directory. Please check HOME/USERPROFILE.");
   }
 
   return path.resolve(fallback);

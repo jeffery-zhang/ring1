@@ -29,7 +29,7 @@ export function ensureAgentsPromptSupported(): void {
     return;
   }
 
-  throw new Error("缺少 --agents 且当前不是交互终端，请显式传入 --agents。");
+  throw new Error("Missing --agents and current terminal is non-interactive. Please pass --agents explicitly.");
 }
 
 /**
@@ -40,7 +40,7 @@ export async function promptForAgents(): Promise<AgentName[]> {
 
   const checkbox = await checkboxLoader();
   const selectedAgents = await checkbox({
-    message: "请选择要同步的 agents（空格勾选，回车提交）",
+    message: "Select agents to sync (Space to toggle, Enter to confirm)",
     choices: SUPPORTED_AGENTS.map((agent) => ({
       name: agent,
       value: agent,
@@ -50,7 +50,7 @@ export async function promptForAgents(): Promise<AgentName[]> {
   });
 
   if (selectedAgents.length === 0) {
-    throw new Error("未选择任何 agent，请至少选择一个后再提交。");
+    throw new Error("No agent selected. Please select at least one agent.");
   }
 
   return selectedAgents;

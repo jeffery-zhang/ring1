@@ -11,7 +11,7 @@ export function parseAgents(rawAgents: string[] | string): AgentName[] {
     .filter((item) => item.length > 0);
 
   if (parsed.length === 0) {
-    throw new Error("agents 不能为空，请至少指定一个 agent。");
+    throw new Error("Agents cannot be empty. Please select at least one agent.");
   }
 
   const uniqueValues = [...new Set(parsed)];
@@ -20,7 +20,7 @@ export function parseAgents(rawAgents: string[] | string): AgentName[] {
   );
   if (unknownAgents.length > 0) {
     throw new Error(
-      `不支持的 agents: ${unknownAgents.join(", ")}。可选值: ${SUPPORTED_AGENTS.join(", ")}`
+      `Unsupported agents: ${unknownAgents.join(", ")}. Available: ${SUPPORTED_AGENTS.join(", ")}`
     );
   }
 

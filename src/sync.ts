@@ -26,17 +26,17 @@ export type SyncResult = SyncSuccessResult | SyncFailedResult;
 
 export async function validateSourceMarkdown(targetFile: string): Promise<string> {
   if (!targetFile || targetFile.trim().length === 0) {
-    throw new Error("目标文件不能为空。");
+    throw new Error("Target file cannot be empty.");
   }
 
   const resolvedPath = path.resolve(targetFile);
   if (path.extname(resolvedPath).toLowerCase() !== ".md") {
-    throw new Error("仅支持 .md 文件。");
+    throw new Error("Only .md files are supported.");
   }
 
   const stat = await fs.stat(resolvedPath).catch(() => undefined);
   if (!stat || !stat.isFile()) {
-    throw new Error(`目标文件不存在或不是普通文件: ${resolvedPath}`);
+    throw new Error(`Target file does not exist or is not a regular file: ${resolvedPath}`);
   }
 
   return resolvedPath;
