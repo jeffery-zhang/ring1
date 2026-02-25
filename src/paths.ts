@@ -1,7 +1,7 @@
 import os from "node:os";
 import path from "node:path";
 
-import { AGENT_DEFINITIONS, AgentName } from "./agents";
+import { AGENT_DEFINITIONS, AgentName } from "./agent-definitions";
 
 function readEnv(name: string): string | undefined {
   const value = process.env[name];
@@ -48,5 +48,5 @@ export function resolveAgentTargetPath(agent: AgentName): string {
   const homeDir = resolveHomeDir();
   const definition = AGENT_DEFINITIONS[agent];
 
-  return path.resolve(homeDir, definition.directoryName, definition.fileName);
+  return path.resolve(homeDir, ...definition.targetPathSegments);
 }

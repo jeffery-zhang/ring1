@@ -25,9 +25,9 @@
   - Windows: `%USERPROFILE%\\.config\\opencode\\AGENTS.md`
 - 在实现中统一使用 `path.join(homeDir, ".config", "opencode", "AGENTS.md")` 组装
 
-### 3) 默认 agents 扩展
+### 3) agents 支持列表扩展
 
-- 默认 `--agents` 从 `claude,codex` 扩展为 `claude,codex,opencode`
+- 支持列表从 `claude,codex` 扩展为 `claude,codex,opencode`
 
 ### 4) 参数选择规则(更新)
 
@@ -61,7 +61,7 @@
 
 ## 确认结果
 
-- 默认 agents: `claude,codex,opencode`
+- `--agents` 默认值: 空（不预选）
 - `--agents` 缺省时:
   - TTY 场景进入多选，默认全不选
   - 若最终未选择任何项，报错退出

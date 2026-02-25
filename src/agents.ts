@@ -1,25 +1,7 @@
-export type AgentName = "claude" | "codex";
+import { AgentName, SUPPORTED_AGENTS } from "./agent-definitions";
 
-export interface AgentDefinition {
-  name: AgentName;
-  directoryName: ".claude" | ".codex";
-  fileName: "CLAUDE.md" | "AGENTS.md";
-}
-
-export const AGENT_DEFINITIONS: Record<AgentName, AgentDefinition> = {
-  claude: {
-    name: "claude",
-    directoryName: ".claude",
-    fileName: "CLAUDE.md"
-  },
-  codex: {
-    name: "codex",
-    directoryName: ".codex",
-    fileName: "AGENTS.md"
-  }
-};
-
-export const SUPPORTED_AGENTS: AgentName[] = ["claude", "codex"];
+export type { AgentName };
+export { SUPPORTED_AGENTS };
 
 export function parseAgents(rawAgents?: string[] | string): AgentName[] {
   if (!rawAgents) {
