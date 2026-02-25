@@ -11,6 +11,9 @@ export const AGENT_DEFINITIONS = {
   },
   opencode: {
     targetPathSegments: [".config", "opencode", "AGENTS.md"]
+  },
+  gemini: {
+    targetPathSegments: [".gemini", "GEMINI.md"]
   }
 } as const satisfies Record<string, AgentDefinition>;
 

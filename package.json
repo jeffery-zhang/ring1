@@ -21,7 +21,8 @@
     "agent",
     "codex",
     "claude",
-    "opencode"
+    "opencode",
+    "gemini"
   ],
   "author": "Jingo",
   "license": "MIT",

@@ -20,7 +20,7 @@ export async function runCli(argv: string[] = process.argv): Promise<void> {
     .description("Sync a target markdown file to agent directories")
     .option(
       "-a, --agents <agents...>",
-      "Target agents: claude codex opencode; prompt multi-select when omitted"
+      "Target agents: claude codex opencode gemini; prompt multi-select when omitted"
     )
     .option("-m, --mode <mode>", "Sync mode: link | copy", "link")
     .action(async (targetFile: string, options: { agents?: string[]; mode?: string }) => {

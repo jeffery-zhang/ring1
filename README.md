@@ -33,7 +33,7 @@ ring1 sync <targetFile> [--agents <agent...>] [--mode link|copy]
 ### Arguments
 
 - `<targetFile>`: markdown file to sync (`.md`)
-- `--agents`: target agents, supports `claude`, `codex`, `opencode`
+- `--agents`: target agents, supports `claude`, `codex`, `opencode`, `gemini`
   - when provided, values are used directly (space/comma separated)
   - when omitted:
     - in TTY, an interactive multi-select prompt is shown
@@ -48,12 +48,14 @@ ring1 sync <targetFile> [--agents <agent...>] [--mode link|copy]
 - `codex` -> `~/.codex/AGENTS.md`
 - `claude` -> `~/.claude/CLAUDE.md`
 - `opencode` -> `~/.config/opencode/AGENTS.md`
+- `gemini` -> `~/.gemini/GEMINI.md`
 
 Windows equivalents:
 
 - `%USERPROFILE%\\.codex\\AGENTS.md`
 - `%USERPROFILE%\\.claude\\CLAUDE.md`
 - `%USERPROFILE%\\.config\\opencode\\AGENTS.md`
+- `%USERPROFILE%\\.gemini\\GEMINI.md`
 
 ### Backup Rule
 
@@ -62,6 +64,7 @@ If a destination file already exists, it is renamed first:
 - `AGENTS.bak.<timestamp>.md`
 - `CLAUDE.bak.<timestamp>.md`
 - `AGENTS.bak.<timestamp>.md` (opencode)
+- `GEMINI.bak.<timestamp>.md`
 
 ### Windows Fallback
 
@@ -73,5 +76,6 @@ If a destination file already exists, it is renamed first:
 ```bash
 ring1 sync ./my-guide.md --agents codex claude
 ring1 sync ./my-guide.md --agents opencode --mode copy
+ring1 sync ./my-guide.md --agents gemini --mode copy
 ring1 sync ./my-guide.md
 ```
