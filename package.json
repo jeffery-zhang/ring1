@@ -1,6 +1,6 @@
 {
   "name": "@jingoz/ring1",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "CLI for syncing markdown guidance files to multiple agent user-scope locations",
   "bin": {
     "ring1": "bin/ring1.js"
