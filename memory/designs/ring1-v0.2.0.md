@@ -2,7 +2,7 @@
 
 ## 本版本定位
 
-- 本版本相对 0.1.0 为重构版本: 现有实现视为废弃, 代码从零重建
+- 本版本相对 v0.1.0 为重构版本: 现有实现视为废弃, 代码从零重建
 - 目标是先完成最小可用 CLI: 用一个源 Markdown 文件同步到 Claude Code 与 Codex
 
 ## 相对 v0.1.0 的核心改造
@@ -10,7 +10,7 @@
 ### 1) 技术栈改造: JavaScript -> TypeScript
 
 - 旧实现(.js)不再延续, 新实现统一使用 TypeScript
-- 构建保持极简: 使用 	sc 产出可执行代码, 不引入额外打包器
+- 构建保持极简: 使用 tsc 产出可执行代码, 不引入额外打包器
 
 ### 2) Agent 范围收敛: 仅支持 Claude 与 Codex
 
@@ -33,14 +33,14 @@
 
 ### 4) 命令面保持最小化
 
-- 保留单命令模型: ing1 sync <targetFile>
+- 保留单命令模型: ring1 sync <targetFile>
 - --agents 仅允许 claude、codex
 - 继续保留 --mode <link|copy> 以兼容旧使用习惯, 默认 link
 
 ## 兼容性设计
 
 - Windows 软链接权限受限时, 输出明确错误并建议切换 --mode copy
-- 所有文件系统操作通过 Node s/promises + 统一错误包装, 保证错误可读
+- 所有文件系统操作通过 Node fs/promises + 统一错误包装, 保证错误可读
 - 所有路径在执行前标准化并输出调试友好的目标绝对路径
 
 ## 保留不变项
