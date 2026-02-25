@@ -1,20 +1,20 @@
 {
   "name": "@jingoz/ring1",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "一键同步多个 Agent 工具 user scope 指导文件的 CLI",
   "bin": {
     "ring1": "bin/ring1.js"
   },
   "scripts": {
-    "start": "node bin/ring1.js",
-    "sync": "node bin/ring1.js sync"
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "sync": "node dist/index.js sync"
   },
   "keywords": [
     "cli",
     "agent",
     "codex",
-    "claude",
-    "gemini"
+    "claude"
   ],
   "author": "Jingo",
   "license": "MIT",
@@ -22,5 +22,9 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^14.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "typescript": "^5.9.3"
   }
 }
