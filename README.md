@@ -21,7 +21,7 @@ npx @jingoz/ring1 sync ./my-guide.md --agents codex
 Pin to a specific version when needed:
 
 ```bash
-npx @jingoz/ring1@0.3.0 sync ./my-guide.md --agents codex
+npx @jingoz/ring1@0.3.1 sync ./my-guide.md --agents codex
 ```
 
 ## Usage
