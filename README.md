@@ -10,6 +10,20 @@ npm run build
 npm link
 ```
 
+## Run Without Installing
+
+You can use `npx` to run the CLI directly from npm without global install:
+
+```bash
+npx @jingoz/ring1 sync ./my-guide.md --agents codex
+```
+
+Pin to a specific version when needed:
+
+```bash
+npx @jingoz/ring1@0.3.0 sync ./my-guide.md --agents codex
+```
+
 ## Usage
 
 ```bash
