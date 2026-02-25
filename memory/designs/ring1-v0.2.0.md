@@ -35,11 +35,12 @@
 
 - 保留单命令模型: ring1 sync <targetFile>
 - --agents 仅允许 claude、codex
+- --agents 默认值为同时同步 claude,codex
 - 继续保留 --mode <link|copy> 以兼容旧使用习惯, 默认 link
 
 ## 兼容性设计
 
-- Windows 软链接权限受限时, 输出明确错误并建议切换 --mode copy
+- Windows 软链接权限受限时, link 自动降级为 copy, 同时打印降级提示
 - 所有文件系统操作通过 Node fs/promises + 统一错误包装, 保证错误可读
 - 所有路径在执行前标准化并输出调试友好的目标绝对路径
 
@@ -53,8 +54,3 @@
 
 - 本版本不新增交互式 UI
 - 本版本不支持第三个 Agent
-
-## 待确认事项(开发前必须确认)
-
-- --agents 默认值是否应为同时同步 claude,codex?
-- link 在 Windows 失败时, 是否需要自动降级为 copy(还是仅提示用户手动切换)?
